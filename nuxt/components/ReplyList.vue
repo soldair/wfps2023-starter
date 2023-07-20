@@ -7,16 +7,17 @@ const props = defineProps<{
 
 const displayReplies = ref(false);
 
-const toggleDisplayReplies = () => {
+const repliesData = ref<Reply[]>([]);
+
+const toggleDisplayReplies = async () => {
   displayReplies.value = !displayReplies.value;
 }
 
-const { data: repliesData, execute: fetchReplies } = useFetch<RepliesResponse>(
-  `/api/replies/${props.commentId}`
-);
-
-watchEffect(() => {
-  if (displayReplies.value) fetchReplies();
+watchEffect(async () => {
+  if (displayReplies.value) {
+    const {data} = await useFetch<RepliesResponse>(`/api/replies/${props.commentId}`);
+    repliesData.value = data.value?.replies || [];
+  }
 });
 </script>
 <style>
@@ -31,9 +32,9 @@ watchEffect(() => {
 <template>
     <button v-show="!displayReplies" @click="toggleDisplayReplies">Show Replies</button>
     <button v-show="displayReplies" @click="toggleDisplayReplies">Hide Replies</button>
-    <div v-show="displayReplies">
-      <div class="reply" v-for="reply in repliesData.replies" :key="reply.id">
-          {{ reply.author.login }} <relative-time :ts="reply.createdAt" />
+    <div v-if="displayReplies">
+      <div class="reply" v-for="reply in repliesData" :key="reply.id">
+          {{ reply.author }} <relative-time :ts="reply.createdAt" />
           <div v-html="reply.bodyHTML"></div>
       </div>
     </div>
