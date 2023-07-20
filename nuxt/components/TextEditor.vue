@@ -29,6 +29,6 @@ const text = ref('');
 <template>
   <div class="editor">
     <textarea :placeholder=placeholder v-model="text"></textarea>
-    <button @click="$emit('submit', text)">{{ action }}</button>
+    <button :disabled="text === ''" @click="$emit('submit', text)">{{ action }}</button>
   </div>
 </template>
