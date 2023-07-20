@@ -15,7 +15,6 @@ const clientID = config.github.appConfig.oauth.clientId;
 export default defineEventHandler(
     async (event): Promise<User|{login_link:string}> => {
     const user = db.get('github_user');
-    console.log('server side user info!',user);
     if(user) {
         let {name,login,avatar_url} = user;
         return {

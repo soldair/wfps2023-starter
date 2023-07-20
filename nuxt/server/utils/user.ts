@@ -10,11 +10,19 @@ export function saveSession(data:any){
     fs.writeFileSync(sessionFile,JSON.stringify(data));
 }
 
+export function deleteSession(){
+    try{
+        fs.unlinkSync(sessionFile);
+    } catch(e){
+        return false;
+    }
+}
+
 export function readSession(){
     try{
         return JSON.parse(fs.readFileSync(sessionFile)+'');
     } catch(e){
-        false;
+        return false;
     }
 }
 
