@@ -11,6 +11,7 @@ const { data } = await useFetch<DiscussionResponse>(
 .discussion {
   padding: 10px;
   max-width: 900px;
+  margin: 0 auto;
   background-color: #fff;
   border-radius: 10px;
 }
