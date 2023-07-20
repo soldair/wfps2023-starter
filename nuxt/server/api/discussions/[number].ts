@@ -3,7 +3,6 @@ export interface Comment {
   author: string;
   createdAt: string;
   bodyHTML: string;
-  replies: Reply[];
 }
 
 export interface Discussion {
@@ -15,13 +14,6 @@ export interface Discussion {
   reactionGroups: any;
   bodyHTML: string;
   comments: Comment[];
-}
-
-export interface Reply {
-  id: string;
-  author: string;
-  createdAt: string;
-  bodyHTML: string;
 }
 
 export interface DiscussionResponse {
@@ -58,18 +50,6 @@ export default defineEventHandler(
                 }
                 createdAt
                 bodyHTML
-                replies(first: 10) {
-                  edges {
-                    node {
-                      id
-                      author {
-                        login
-                      }
-                      createdAt
-                      bodyHTML   
-                    }
-                  }
-                }
               }
             }
           }
@@ -98,22 +78,11 @@ export default defineEventHandler(
 
     const whosiewhatsits = []
     for (const { node: { id, author, createdAt, bodyHTML, replies } } of comments) {
-      const thingamajigs = []
-      for (const { node: { id, author, createdAt, bodyHTML } } of replies.edges) {
-        thingamajigs.push({
-          id,
-          author: author.login,
-          createdAt,
-          bodyHTML,
-        });
-      }
-
       const whatsiewhosit: Comment = {
         id,
         author: author.login,
         createdAt,
         bodyHTML,
-        replies: thingamajigs,
       }
 
       whosiewhatsits.push(whatsiewhosit)
