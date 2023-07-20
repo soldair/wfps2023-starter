@@ -13,25 +13,18 @@ export default defineEventHandler(
 async (event): Promise<RepliesResponse> => {
     const data: any = await useGraphql(
     `
-    query discussionDetails($repoOwner: String!, $repoName: String!, $discussionId: Int!) {
-        repository(owner: $repoOwner, name: $repoName) {
-            discussion(number: $discussionId) {
-                comments(first: 10) {
+    query discussionDetails($commentId: ID!) {
+        node(id: $commentId) {
+            ... on DiscussionComment {
+                replies(first: 10) {
                     edges {
                         node {
                             id
-                            replies(first: 10) {
-                                edges {
-                                    node {
-                                        id
-                                        author {
-                                            login
-                                        }
-                                        createdAt
-                                        bodyHTML
-                                    }
-                                }
+                            author {
+                                login
                             }
+                            createdAt
+                            bodyHTML
                         }
                     }
                 }
@@ -39,15 +32,12 @@ async (event): Promise<RepliesResponse> => {
         }
     }`,
     {
-        discussionId: Number(event.context.params!["number"]),
+        commentId: String(event.context.params!["commentId"]),
     }
     );
 
-    const commentId = String(event.context.params!["commentId"]);
-
-    const discussion = data.repository.discussion;
-    const comment = discussion.comments.edges.find((comment: any) => comment.node.id === commentId);
-    const replies: Reply[] = comment.node.replies.edges.map(r => r.node);
+    const { node: { replies: { edges: replyEdges } } } = data;
+    const replies: Reply[] = replyEdges.map(r=>r.node);
 
     return {
         replies,
