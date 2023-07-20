@@ -25,7 +25,8 @@ const { data: repliesData } = await useFetch<RepliesResponse>(
 }
 </style>
 <template>
-    <button @click="toggleDisplayReplies">Show Replies</button>
+    <button v-show="!displayReplies" @click="toggleDisplayReplies">Show Replies</button>
+    <button v-show="displayReplies" @click="toggleDisplayReplies">Hide Replies</button>
     <div v-show="displayReplies">
       <div class="reply" v-for="reply in repliesData.replies" :key="reply.id">
           {{ reply.author.login }} <relative-time :ts="reply.createdAt" />
