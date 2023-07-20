@@ -4,7 +4,7 @@ const props = defineProps<{
   action: string;
 }>();
 
-const expanded = ref(false);
+const text = ref('');
 </script>
 <style>
 .editor {
@@ -28,7 +28,7 @@ const expanded = ref(false);
 </style>
 <template>
   <div class="editor">
-    <textarea :placeholder=placeholder></textarea>
-    <button>{{ action }}</button>
+    <textarea :placeholder=placeholder v-model="text"></textarea>
+    <button @click="$emit('submit', text)">{{ action }}</button>
   </div>
 </template>

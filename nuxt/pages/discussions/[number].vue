@@ -6,6 +6,12 @@ const route = useRoute();
 const { data } = await useFetch<DiscussionResponse>(
   `/api/discussions/${route.params.number}`,
 );
+
+function postComment(text: string) {
+  console.log(`TODO post comment with text:
+${text}
+`);
+}
 </script>
 <style>
 .discussion {
@@ -41,7 +47,7 @@ const { data } = await useFetch<DiscussionResponse>(
         <div v-html="comment.bodyHTML"></div>
         <reply-list :commentId="comment.id"></reply-list>
       </article>
-      <text-editor placeholder="Add a comment" action="Comment"></text-editor>
+      <text-editor placeholder="Add a comment" action="Comment" @submit="postComment"></text-editor>
     </div>
   </section>
 </template>

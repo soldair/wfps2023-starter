@@ -22,6 +22,12 @@ watchEffect(async () => {
     loading.value = false;
   }
 });
+
+function postReply(text: string) {
+  console.log(`TODO post reply with text:
+${text}
+`);
+}
 </script>
 <style>
 .reply {
@@ -41,6 +47,6 @@ watchEffect(async () => {
           {{ reply.author }} <relative-time :ts="reply.createdAt" />
           <div v-html="reply.bodyHTML"></div>
       </div>
-      <text-editor placeholder="Add a reply" action="Reply"></text-editor>
+      <text-editor placeholder="Add a reply" action="Reply" @submit="postReply"></text-editor>
     </div>
 </template>
