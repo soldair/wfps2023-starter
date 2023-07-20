@@ -11,9 +11,13 @@ const toggleDisplayReplies = () => {
   displayReplies.value = !displayReplies.value;
 }
 
-const { data: repliesData } = await useFetch<RepliesResponse>(
+const { data: repliesData, execute: fetchReplies } = useFetch<RepliesResponse>(
   `/api/replies/${props.commentId}`
 );
+
+watchEffect(() => {
+  if (displayReplies.value) fetchReplies();
+});
 </script>
 <style>
 .reply {
