@@ -8,7 +8,7 @@
 <template>
     <section>
     <hr/>
-    <a :href="`https://github.com/login/oauth/authorize?client_id=${data}`">Login with GitHub</a>
+    <a target="_blank" :href="`https://github.com/login/oauth/authorize?client_id=${data}`">Login with GitHub</a>
     <hr/>
     </section>
 </template>
