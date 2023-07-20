@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import type { RepliesResponse, Reply } from "../server/api/discussions/[number]/replies/[commentId]";
+import type { RepliesResponse, Reply } from "../server/api/replies/[commentId]";
 
 const props = defineProps<{
-  discussionId: number;
   commentId: string;
 }>();
 
@@ -13,7 +12,7 @@ const toggleDisplayReplies = () => {
 }
 
 const { data: repliesData } = await useFetch<RepliesResponse>(
-  `/api/discussions/${props.discussionId}/replies/${props.commentId}`
+  `/api/replies/${props.commentId}`
 );
 </script>
 <template>

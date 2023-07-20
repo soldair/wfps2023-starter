@@ -24,7 +24,7 @@ const { data } = await useFetch<DiscussionResponse>(
         <li v-for="comment in data.discussion.comments" :key="comment.id">
           {{ comment.author }} <relative-time :ts="comment.createdAt" />
           <div v-html="comment.bodyHTML"></div>
-          <reply-list :discussionId="route.params.number" :commentId="comment.id"></reply-list>
+          <reply-list :commentId="comment.id"></reply-list>
         </li>
       </ul>
     </div>
