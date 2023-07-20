@@ -10,8 +10,10 @@ type User = {
     avatar_url: string;
 }
 
+const config = useRuntimeConfig()
+const clientID = config.github.appConfig.oauth.clientId;
 export default defineEventHandler(
-    async (event): Promise<User|false> => {
+    async (event): Promise<User|{login_link:string}> => {
     const user = db.get('github_user');
     console.log('server side user info!',user);
     if(user) {
@@ -22,5 +24,6 @@ export default defineEventHandler(
             avatar_url
         }
     }
-    return false;
+
+    return {login_link:"https://github.com/login/oauth/authorize?client_id="+clientID};
 })

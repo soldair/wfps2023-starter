@@ -36,12 +36,14 @@ nav ul li a.router-link-active {
 main {
   padding: 20px;
 }
+
 </style>
 <template>
   <nav>
     <ul>
       <li><NuxtLink to="/">Discussions</NuxtLink></li>
       <li><NuxtLink to="/about">About</NuxtLink></li>
+      <li class="user-bar"><UserState></UserState></li>
     </ul>
   </nav>
   <main>
