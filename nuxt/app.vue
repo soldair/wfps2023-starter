@@ -43,6 +43,7 @@ main {
     <ul>
       <li><NuxtLink to="/">Discussions</NuxtLink></li>
       <li><NuxtLink to="/about">About</NuxtLink></li>
+      <li><NuxtLink to="/login">Login</NuxtLink></li>
       <li class="user-bar"><UserState></UserState></li>
     </ul>
   </nav>
