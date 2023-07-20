@@ -7,8 +7,24 @@ const { data } = await useFetch<DiscussionResponse>(
   `/api/discussions/${route.params.number}`,
 );
 </script>
+<style>
+.discussion {
+  padding: 10px;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.comments>article {
+  display: block;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+}
+</style>
 <template>
-  <section>
+  <section class="discussion">
     <h1>{{ data.discussion.title }}</h1>
     <p>
       {{ data.discussion.author }}
@@ -19,14 +35,11 @@ const { data } = await useFetch<DiscussionResponse>(
       <emoji-reactions :groups="data.discussion.reactionGroups" />
     </div>
     <div class="comments">
-      <h2>Comments</h2>
-      <ul>
-        <li v-for="comment in data.discussion.comments" :key="comment.id">
-          {{ comment.author }} <relative-time :ts="comment.createdAt" />
-          <div v-html="comment.bodyHTML"></div>
-          <reply-list :commentId="comment.id"></reply-list>
-        </li>
-      </ul>
+      <article v-for="comment in data.discussion.comments" :key="comment.id">
+        {{ comment.author }} <relative-time :ts="comment.createdAt" />
+        <div v-html="comment.bodyHTML"></div>
+        <reply-list :commentId="comment.id"></reply-list>
+      </article>
     </div>
   </section>
 </template>

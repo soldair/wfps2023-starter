@@ -4,6 +4,7 @@ body {
   padding: 0;
 
   font-family: Helvetica, Arial, sans-serif;
+  background-color: #e8e8e8;
 }
 
 nav {
@@ -11,6 +12,7 @@ nav {
   padding: 25px 20px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, .3);
   font-size: 20px;
+  background-color: #fff;
 }
 
 nav ul {

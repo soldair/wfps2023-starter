@@ -15,12 +15,21 @@ const { data: repliesData } = await useFetch<RepliesResponse>(
   `/api/replies/${props.commentId}`
 );
 </script>
+<style>
+.reply {
+  display: block;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+</style>
 <template>
     <button @click="toggleDisplayReplies">Show Replies</button>
-    <ul v-show="displayReplies">
-    <li v-for="reply in repliesData.replies" :key="reply.id">
-        {{ reply.author }} <relative-time :ts="reply.createdAt" />
-        <div v-html="reply.bodyHTML"></div>
-    </li>
-    </ul>
+    <div v-show="displayReplies">
+      <div class="reply" v-for="reply in repliesData.replies" :key="reply.id">
+          {{ reply.author.login }} <relative-time :ts="reply.createdAt" />
+          <div v-html="reply.bodyHTML"></div>
+      </div>
+    </div>
 </template>
