@@ -41,5 +41,6 @@ watchEffect(async () => {
           {{ reply.author }} <relative-time :ts="reply.createdAt" />
           <div v-html="reply.bodyHTML"></div>
       </div>
+      <text-editor placeholder="Add a reply" action="Reply"></text-editor>
     </div>
 </template>

@@ -41,6 +41,7 @@ const { data } = await useFetch<DiscussionResponse>(
         <div v-html="comment.bodyHTML"></div>
         <reply-list :commentId="comment.id"></reply-list>
       </article>
+      <text-editor placeholder="Add a comment" action="Comment"></text-editor>
     </div>
   </section>
 </template>
